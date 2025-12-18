@@ -1,7 +1,15 @@
 {% assign sorted_pages = site.html_pages %}
+
+{%- comment -%}
+    Also include blog posts in the sidebar. Posts support the same
+    front matter keys (title, order, category, unlisted).
+{%- endcomment -%}
+{% assign sorted_pages = sorted_pages | concat: site.posts %}
+
 {% if site.sidebar.additional_links %}
-    {% assign sorted_pages = site.html_pages | concat: site.sidebar.additional_links %}
+    {% assign sorted_pages = sorted_pages | concat: site.sidebar.additional_links %}
 {% endif %}
+
 {% assign sorted_pages = sorted_pages | sort: "order" %}
 {% assign previous_category = "_" %}
 {% assign item_index = 0 %}

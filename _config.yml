@@ -9,7 +9,8 @@ description: ''
 # IMPORTANT: on Github Pages deploys, url and baseurl must be commented or set to proper settings, otherwise links and resources URL are wrong
 # url: http://localhost # the base hostname & protocol for your site, e.g. http://example.com
 # baseurl: /Jekyll-LibDoc/_site # the subpath of your site, e.g. /blog
-#permalink: /:path/:basename/:output_ext
+# Make posts live under /post/YYYY/MM/DD/title.html so sidebar links work
+permalink: /post/:year/:month/:day/:title:output_ext
 #destination: ../your/new/path # Build relative path destination. The destination directory e.g. /blog
 #keep_files: [cache]
 #markdown: kramdown
@@ -156,33 +157,32 @@ sidebar:
         # LOGO FONT SIZE FALLBACK
         # If no logo url, font size of the site title, ignored if url is set
         font_size: 32px
+        # ADDITIONAL LINKS
+        # Allows to add links that are not pages included into the project
+        # Display additional links anywhere into the sidebar
+        additional_links:
+          - url: https://github.com/hubertklonowski
+            title: <span class="i-github u-mr-xxs"></span> My GitHub
+            order: 0
+        #   - url: https://pages.github.com
+        #     title: Github Pages
+        #     order: 510
+        #     category: External resources
+        #   - url: https://jekyllrb.com
+        #     title: Jekyll
+        #     order: 510
+        #     category: External resources
 
-    # ADDITIONAL LINKS
-    # Allows to add links that are not pages included into the project
-    # Display additional links anywhere into the sidebar
-    additional_links:
-      - url: https://github.com/hubertklonowski/agentic-madness
-        title: <span class="i-github u-mr-xxs"></span> Agentic Madness on GitHub
-        order: 0
-      - url: https://pages.github.com
-        title: Github Pages
-        order: 510
-        category: External resources
-      - url: https://jekyllrb.com
-        title: Jekyll
-        order: 510
-        category: External resources
+        # BADGES
+        # Feature that allows to display badges into the footer https://shields.io image html and url
+        # shields:
+        #   - image_html: <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/olivier3lanc/LibDoc-remote-demo?logo=github&style=flat-square">
+        #     link_url: https://github.com/olivier3lanc/LibDoc-remote-demo
+        #   - image_html: <img alt="no trackers, no cookies and no analytics" title="This website has no trackers, no cookies and no analytics. Only feedback is important :)" src="https://img.shields.io/badge/no%20trackers|cookies|analytics-Just%20feedback-green?style=flat-square">
+        #     link_url: 'mailto:hub3rd2@gmail.com'
 
-# BADGES
-# Feature that allows to display badges into the footer https://shields.io image html and url
-# shields:
-#   - image_html: <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/olivier3lanc/LibDoc-remote-demo?logo=github&style=flat-square">
-#     link_url: https://github.com/olivier3lanc/LibDoc-remote-demo
-#   - image_html: <img alt="no trackers, no cookies and no analytics" title="This website has no trackers, no cookies and no analytics. Only feedback is important :)" src="https://img.shields.io/badge/no%20trackers|cookies|analytics-Just%20feedback-green?style=flat-square">
-#     link_url: 'mailto:hub3rd2@gmail.com'
-
-# ASSETS
-# Settings for the assets layout
+        # ASSETS
+        # Settings for the assets layout
 assets:
     # START PATH
     # The path from which files are available to download. '/' is the root
