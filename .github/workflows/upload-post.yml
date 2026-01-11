@@ -1,0 +1,74 @@
+name: Upload Post to Azure Blob Storage
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_file:
+        description: 'Post markdown file path (relative to repository root)'
+        required: true
+        type: string
+      is_draft:
+        description: 'Save as draft (true) or publish (false)'
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      
+      - name: Validate file exists
+        run: |
+          if [ ! -f "${{ inputs.post_file }}" ]; then
+            echo "Error: File ${{ inputs.post_file }} not found!"
+            exit 1
+          fi
+          echo "✅ File found: ${{ inputs.post_file }}"
+      
+      - name: Upload to Azure Blob Storage
+        env:
+          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+          AZURE_CONTAINER_NAME: ${{ secrets.AZURE_CONTAINER_NAME }}
+        run: |
+          FILENAME=$(basename "${{ inputs.post_file }}")
+          
+          if [ "${{ inputs.is_draft }}" = "true" ]; then
+            FOLDER="drafts"
+            echo "📝 Uploading as DRAFT to drafts/$FILENAME"
+          else
+            FOLDER="posts"
+            echo "📤 Uploading as PUBLISHED to posts/$FILENAME"
+          fi
+          
+          az storage blob upload \
+            --account-name "$AZURE_STORAGE_ACCOUNT" \
+            --account-key "$AZURE_STORAGE_KEY" \
+            --container-name "$AZURE_CONTAINER_NAME" \
+            --file "${{ inputs.post_file }}" \
+            --name "$FOLDER/$FILENAME" \
+            --overwrite
+          
+          echo "✅ Upload successful!"
+          echo "📍 Blob path: $FOLDER/$FILENAME"
+      
+      - name: Summary
+        run: |
+          FILENAME=$(basename "${{ inputs.post_file }}")
+          if [ "${{ inputs.is_draft }}" = "true" ]; then
+            echo "📝 Post saved as DRAFT"
+            echo "To publish: Re-run this workflow with is_draft=false"
+          else
+            echo "✅ Post PUBLISHED!"
+            echo "The site will rebuild automatically and your post will be live."
+          fi

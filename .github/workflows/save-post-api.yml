@@ -1,0 +1,56 @@
+name: Save Post via API
+
+on:
+  repository_dispatch:
+    types: [save-post]
+
+permissions:
+  contents: write
+
+jobs:
+  save-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      
+      - name: Save post to Azure
+        env:
+          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+          AZURE_CONTAINER_NAME: ${{ secrets.AZURE_CONTAINER_NAME }}
+        run: |
+          # Extract data from repository_dispatch event
+          FILENAME="${{ github.event.client_payload.filename }}"
+          CONTENT="${{ github.event.client_payload.content }}"
+          IS_DRAFT="${{ github.event.client_payload.is_draft }}"
+          
+          # Determine folder
+          if [ "$IS_DRAFT" = "true" ]; then
+            FOLDER="drafts"
+          else
+            FOLDER="posts"
+          fi
+          
+          # Create temp file with content
+          echo "$CONTENT" > "/tmp/$FILENAME"
+          
+          # Upload to Azure
+          az storage blob upload \
+            --account-name "$AZURE_STORAGE_ACCOUNT" \
+            --account-key "$AZURE_STORAGE_KEY" \
+            --container-name "$AZURE_CONTAINER_NAME" \
+            --file "/tmp/$FILENAME" \
+            --name "$FOLDER/$FILENAME" \
+            --overwrite
+          
+          echo "✅ Post saved: $FOLDER/$FILENAME"
+      
+      - name: Trigger rebuild
+        if: github.event.client_payload.is_draft == 'false'
+        run: |
+          echo "Post published, site will rebuild automatically"

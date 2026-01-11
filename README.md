@@ -6,6 +6,13 @@ A blog about agentic AI, powered by Jekyll and hosted on GitHub Pages.
 
 This blog now includes:
 
+### 📝 Web-Based Post Editor
+- **Write posts directly in your browser** with a built-in markdown editor
+- Live preview as you type
+- Save drafts locally and manage them before publishing
+- Automatic download of posts for easy Azure upload
+- See [EDITOR.md](EDITOR.md) for complete guide
+
 ### 📦 Azure Blob Storage Integration
 - **Posts are loaded from Azure Blob Storage** during build time
 - No plain text post content stored in the repository
@@ -54,6 +61,11 @@ For detailed setup instructions, see [scripts/README.md](scripts/README.md)
 4. **Access your ideas:**
    - Visit: `https://yourusername.github.io/agentic-madness/ideas-admin.html`
    - Enter your encryption password
+
+5. **Use the post editor:**
+   - Visit: `https://yourusername.github.io/agentic-madness/editor.html`
+   - Write and manage posts directly in your browser
+   - See [EDITOR.md](EDITOR.md) for complete guide
 
 ## 🛠️ Local Development
 
