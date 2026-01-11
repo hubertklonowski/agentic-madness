@@ -1,6 +1,6 @@
 # Migration Guide
 
-This guide helps you migrate your existing blog to the new Azure Blob Storage + Encrypted Ideas setup.
+This guide helps you migrate your existing blog to the new Azure Blob Storage + Encrypted Ideas + Post Editor setup.
 
 ## Current State
 
@@ -8,6 +8,15 @@ You currently have posts in the `_posts/` directory that are:
 - ✅ Stored in plain text in the repository
 - ✅ Publicly visible in the GitHub repo
 - ✅ Working with the new post layout
+
+## New Capabilities
+
+After migration, you'll have:
+- ✅ Posts stored in Azure Blob Storage (not in repo)
+- ✅ Web-based editor at `/editor.html` to write posts
+- ✅ Draft management (drafts/ vs posts/ folders)
+- ✅ Encrypted post ideas at `/ideas-admin.html`
+- ✅ No plain text content in repository
 
 ## Migration Steps
 
@@ -151,9 +160,34 @@ From now on:
 3. View your encrypted post ideas
 4. Bookmark this page for easy access
 
+### Step 7: Try the Post Editor
+
+1. Visit: `https://yourusername.github.io/agentic-madness/editor.html`
+2. Enter your password (same as ideas admin)
+3. Write a test post
+4. Save it (will download as .md file)
+5. Upload to Azure `drafts/` folder to test
+6. See [EDITOR.md](EDITOR.md) for complete guide
+
 ## Adding New Posts
 
-### For Published Posts
+You now have **two ways** to add posts:
+
+### Option 1: Using the Web Editor (Recommended)
+
+1. Visit `/editor.html`
+2. Enter your password
+3. Write your post with live preview
+4. Save (downloads .md file)
+5. Upload to Azure:
+   - `drafts/` - for drafts (not visible)
+   - `posts/` - for published (visible)
+
+See [EDITOR.md](EDITOR.md) for detailed instructions.
+
+### Option 2: Manual Creation
+
+For Published Posts
 
 1. Write your post in markdown format:
    ```markdown
