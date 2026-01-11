@@ -6,7 +6,11 @@ _site/
 .bundle/
 vendor/
 # Ignore posts fetched from Azure (they should only exist in Azure Blob Storage)
+# NOTE: Existing posts checked in before this .gitignore will remain unless explicitly removed
 _posts/*.md
 _posts/*.markdown
 # Ignore local post ideas file (encrypted version should be in GitHub secrets)
 scripts/post_ideas.json
+# Ignore temporary files
+*.tmp
+.DS_Store
