@@ -2,6 +2,8 @@
 
 This guide explains how to set up Azure Blob Storage for posts and encrypted post ideas management.
 
+> **Migrating existing blog?** See [MIGRATION.md](../MIGRATION.md) for step-by-step migration instructions.
+
 ## Overview
 
 This repository now supports:
