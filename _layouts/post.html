@@ -1,0 +1,31 @@
+---
+layout: libdoc/default
+---
+<main class="m-grow m-w-1 c-grid m-nowrap m-center">
+    <div class="{{ page.content_class | default: 'm-grow m-w-1 u-mw-main u-bc-primary-max u-b-thin-dashed-alt' }}">
+        <header class="u-bb-thin-dashed-alt u-p-lg" u-p-sm="sm">
+            <h1 id="libdoc-page-title" class="u-mt-none u-mb-xs">{{ page.title }}</h1>
+            <p class="u-fs-md u-m-none u-lh-base u-opacity-60">
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                {% if page.categories.size > 0 %}
+                <span class="u-ml-sm">
+                    {% for category in page.categories %}
+                    <span class="u-badge u-bg-alt u-c-primary">{{ category }}</span>
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </p>
+            {% if page.tags.size > 0 %}
+            <p class="u-fs-sm u-mt-sm u-mb-none">
+                {% for tag in page.tags %}
+                <span class="u-badge u-bg-primary-edge u-c-primary-alt">#{{ tag }}</span>
+                {% endfor %}
+            </p>
+            {% endif %}
+        </header>
+        <article id="libdoc-content" class="u-p-lg u-p-sm--sm">
+            {{ content }}
+        </article>
+    </div>
+    <div id="libdoc-toc-container" class="m-fw-mini c-position m-top-right m-anchor-top-left u-bc-primary-edge u-z-10" u-fixed="sm" u-none="sm"></div>
+</main>

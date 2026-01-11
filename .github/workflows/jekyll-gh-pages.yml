@@ -35,6 +35,13 @@ jobs:
         with:
           source: ./
           destination: ./_site
+        env:
+          # Azure Blob Storage credentials for loading posts
+          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+          AZURE_CONTAINER_NAME: ${{ secrets.AZURE_CONTAINER_NAME }}
+          # Encrypted post ideas
+          ENCRYPTED_IDEAS: ${{ secrets.ENCRYPTED_IDEAS }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
