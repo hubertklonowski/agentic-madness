@@ -3,6 +3,7 @@ require 'uri'
 require 'json'
 require 'openssl'
 require 'base64'
+require 'fileutils'
 
 module Jekyll
   class AzureBlobPostsLoader < Generator
@@ -56,7 +57,9 @@ module Jekyll
       date = Time.now.httpdate
       version = '2020-10-02'
       
-      url = "https://#{storage_account}.blob.core.windows.net/#{container_name}?restype=container&comp=list&prefix=#{prefix}"
+      # URI encode the prefix parameter
+      encoded_prefix = URI.encode_www_form_component(prefix)
+      url = "https://#{storage_account}.blob.core.windows.net/#{container_name}?restype=container&comp=list&prefix=#{encoded_prefix}"
       uri = URI(url)
       
       string_to_sign = "GET\n\n\n\n\n\n\n\n\n\n\n\nx-ms-date:#{date}\nx-ms-version:#{version}\n/#{storage_account}/#{container_name}\ncomp:list\nprefix:#{prefix}\nrestype:container"
@@ -93,7 +96,9 @@ module Jekyll
       date = Time.now.httpdate
       version = '2020-10-02'
       
-      url = "https://#{storage_account}.blob.core.windows.net/#{container_name}/#{blob_name}"
+      # URI encode the blob name
+      encoded_blob_name = blob_name.split('/').map { |part| URI.encode_www_form_component(part) }.join('/')
+      url = "https://#{storage_account}.blob.core.windows.net/#{container_name}/#{encoded_blob_name}"
       uri = URI(url)
       
       string_to_sign = "GET\n\n\n\n\n\n\n\n\n\n\n\nx-ms-date:#{date}\nx-ms-version:#{version}\n/#{storage_account}/#{container_name}/#{blob_name}"
