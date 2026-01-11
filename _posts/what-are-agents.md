@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What are agents?"
-date: 2026-01-09 18:00:00 +0100
+date: 2026-01-11 11:00:00 +0100
 categories: [ai, llm, agents]
 tags: [agentic-ai, assistants, react, tools, retrieval, memory]
 ---
