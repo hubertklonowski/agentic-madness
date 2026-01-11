@@ -25,13 +25,14 @@ module Jekyll
       blobs.each do |blob_name|
         next unless blob_name.end_with?('.md') || blob_name.end_with?('.markdown')
         
+        # Security: Validate blob name to prevent directory traversal
+        filename = File.basename(blob_name)
+        next if filename.start_with?('.') || filename.include?('..')
+        
         puts "  📄 Fetching: #{blob_name}"
         content = download_blob(storage_account, storage_key, container_name, blob_name)
         
         if content
-          # Extract filename from blob path
-          filename = File.basename(blob_name)
-          
           # Create a temporary file-like object for Jekyll to process
           post_file_path = File.join(site.source, '_posts', filename)
           
@@ -73,10 +74,13 @@ module Jekyll
       response = http.request(request)
       
       if response.code == '200'
-        # Parse XML response to extract blob names
+        # Parse XML response to extract blob names using regex (simple parsing for basic use case)
+        # Note: This is acceptable for our controlled scenario where we own the Azure container
         blob_names = []
         response.body.scan(/<Name>(.*?)<\/Name>/).each do |match|
-          blob_names << match[0]
+          blob_name = match[0]
+          # Security: Only include blobs from the posts/ directory
+          blob_names << blob_name if blob_name.start_with?('posts/')
         end
         blob_names
       else

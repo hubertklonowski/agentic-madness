@@ -13,7 +13,8 @@ module Jekyll
       puts "🔐 Processing encrypted post ideas..."
       
       # Create a page for the admin interface
-      admin_page = PageWithoutAFile.new(site, __dir__, '', 'ideas-admin.html')
+      # Using a relative path for the admin page
+      admin_page = PageWithoutAFile.new(site, site.source, '', 'ideas-admin.html')
       admin_page.data['layout'] = 'libdoc/page'
       admin_page.data['title'] = 'Post Ideas Admin'
       admin_page.data['description'] = 'Manage your encrypted post ideas'

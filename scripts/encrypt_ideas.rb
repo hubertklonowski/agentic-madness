@@ -64,10 +64,16 @@ puts "The encrypted data can be stored as a GitHub secret."
 puts "\n"
 
 # Load existing ideas file or use example
-ideas_file = File.join(__dir__, 'post_ideas.json')
+ideas_file = File.expand_path(File.join(__dir__, 'post_ideas.json'))
 if File.exist?(ideas_file)
   puts "📄 Loading existing ideas from post_ideas.json"
-  ideas = JSON.parse(File.read(ideas_file))
+  begin
+    ideas = JSON.parse(File.read(ideas_file))
+  rescue JSON::ParserError => e
+    puts "❌ Error parsing post_ideas.json: #{e.message}"
+    puts "Please check that your JSON file is valid."
+    exit 1
+  end
 else
   puts "📝 Using example ideas (create post_ideas.json to use your own)"
   ideas = example_ideas

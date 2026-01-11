@@ -8,7 +8,7 @@ puts "=" * 50
 puts "\nThis script helps you prepare posts for Azure Blob Storage."
 puts "Posts in _posts/ will be identified for upload.\n"
 
-posts_dir = File.join(__dir__, '..', '_posts')
+posts_dir = File.expand_path(File.join(__dir__, '..', '_posts'))
 unless Dir.exist?(posts_dir)
   puts "❌ No _posts directory found!"
   exit 1
