@@ -96,8 +96,8 @@ if password != password_confirm
   exit 1
 end
 
-if password.length < 8
-  puts "❌ Password must be at least 8 characters long!"
+if password.length < 12
+  puts "❌ Password must be at least 12 characters long for better security!"
   exit 1
 end
 

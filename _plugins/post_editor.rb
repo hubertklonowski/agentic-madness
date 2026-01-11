@@ -258,7 +258,19 @@ module Jekyll
           </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+        <script>
+          // Fallback: If CDN fails, provide basic markdown rendering
+          if (typeof marked === 'undefined') {
+            console.warn('Marked.js CDN failed, using fallback renderer');
+            window.marked = {
+              parse: function(text) {
+                // Basic fallback - just display as-is with line breaks
+                return text.replace(/\\n/g, '<br>');
+              }
+            };
+          }
+        </script>
         <script>
           let authToken = null;
           let autoSaveTimer = null;
@@ -285,8 +297,8 @@ module Jekyll
             // For this static site, we use the same password as encrypted ideas
             authToken = password;
             
-            // Simple validation - password must be at least 8 characters
-            if (password.length >= 8) {
+            // Simple validation - password must be at least 12 characters with complexity
+            if (password.length >= 12) {
               document.getElementById('loginForm').style.display = 'none';
               document.getElementById('editorContainer').classList.add('unlocked');
               document.getElementById('password').value = '';

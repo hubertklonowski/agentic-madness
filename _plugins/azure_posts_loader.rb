@@ -45,7 +45,7 @@ module Jekyll
         end
       end
       
-      puts "✅ Loaded #{blobs.count} posts from Azure Blob Storage"
+      puts "✅ Loaded #{blobs.length} posts from Azure Blob Storage"
     rescue => e
       puts "⚠️  Error loading posts from Azure: #{e.message}"
       puts e.backtrace.first(5).join("\n")
