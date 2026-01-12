@@ -247,3 +247,95 @@ a.tag:hover {
     background: none;
     padding: 0;
 }
+
+/* Mobile responsiveness improvements */
+@media (max-width: 768px) {
+    /* Fix tags wrapping on main page */
+    .post-meta-inline {
+        flex-wrap: wrap !important;
+    }
+    
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Fix hamburger menu positioning */
+    #libdoc-sidebar button.c-btn {
+        z-index: 1000 !important;
+    }
+    
+    /* Fix sidebar height to take full screen */
+    #libdoc-sidebar {
+        height: 100vh !important;
+        min-height: 100vh !important;
+    }
+    
+    #libdoc-sidebar-menu {
+        max-height: 100vh !important;
+        height: 100vh !important;
+    }
+    
+    /* Fix content width - ensure full screen usage */
+    #libdoc-content {
+        max-width: 100vw !important;
+        overflow-x: hidden;
+    }
+    
+    main {
+        max-width: 100vw !important;
+        overflow-x: hidden;
+    }
+    
+    .post-content,
+    .post-preview {
+        max-width: 100% !important;
+        overflow-x: hidden;
+    }
+    
+    /* Reduce font sizes for mobile */
+    body {
+        font-size: 16px !important;
+    }
+    
+    h1 {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+    }
+    
+    h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+    
+    h3 {
+        font-size: 20px !important;
+        line-height: 1.3 !important;
+    }
+    
+    h4, h5, h6 {
+        font-size: 18px !important;
+        line-height: 1.3 !important;
+    }
+    
+    .u-fs-lg {
+        font-size: 20px !important;
+    }
+    
+    .post-meta {
+        font-size: 14px !important;
+    }
+}
+
+/* Force light mode for comments on all devices */
+.giscus,
+.giscus-frame {
+    color-scheme: light !important;
+}
+
+.comments-section {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
