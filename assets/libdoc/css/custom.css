@@ -5,6 +5,11 @@
     opacity: 1 !important;
 }
 
+/* Sidebar social icons */
+.sidebar-social a:hover {
+    opacity: 1 !important;
+}
+
 /* Search button styling */
 #libdoc-sidebar-item-search button[type="submit"]:hover {
     opacity: 1 !important;
