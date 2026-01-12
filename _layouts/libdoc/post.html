@@ -1,0 +1,53 @@
+---
+layout: libdoc/default
+---
+<main class="m-grow m-w-1 c-grid m-nowrap m-center">
+    <div class="{{ page.content_class | default: 'm-grow m-w-1 u-mw-main u-bc-primary-max u-b-thin-dashed-alt' }}">
+        <header class="u-bb-thin-dashed-alt u-p-lg" u-p-sm="sm">
+            <div class="post-meta u-fs-md u-c-primary-alt u-mb-sm">
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                {% if page.categories.size > 0 %}
+                    <span class="u-mx-xs">•</span>
+                    {% for category in page.categories %}
+                        <a href="{{ '/assets/libdoc/search.html' | relative_url }}?query={{ category | url_encode }}" class="post-category">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                {% endif %}
+                {% if page.tags.size > 0 %}
+                    <div class="post-tags u-mt-xs">
+                        {% for tag in page.tags %}
+                            <a href="{{ '/assets/libdoc/search.html' | relative_url }}?query={{ tag | url_encode }}" class="tag u-fs-xs u-px-xs u-py-xxs u-bc-primary-edge u-c-primary-alt u-brad-sm">#{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if page.description %}
+                <p class="u-fs-lg u-m-none u-lh-base" u-fs-md="sm">{{ page.description }}</p>
+            {% endif %}
+        </header>
+        <article id="libdoc-content" class="post-content u-p-lg u-p-sm--sm">
+            {{ content }}
+        </article>
+        
+        <footer class="post-footer u-bt-thin-dashed-alt u-p-lg" u-p-sm="sm">
+            <div class="post-navigation u-mb-md">
+                {% if page.previous.url %}
+                    <a href="{{ page.previous.url | relative_url }}" class="c-btn m-translucid u-inline-block u-mr-sm u-mb-xs">
+                        ← {{ page.previous.title }}
+                    </a>
+                {% endif %}
+                {% if page.next.url %}
+                    <a href="{{ page.next.url | relative_url }}" class="c-btn m-translucid u-inline-block u-mb-xs">
+                        {{ page.next.title }} →
+                    </a>
+                {% endif %}
+            </div>
+            
+            <div class="back-to-home">
+                <a href="{{ site.url }}{{ site.baseurl }}" class="c-btn m-primary u-inline-block">
+                    ← Back to Home
+                </a>
+            </div>
+        </footer>
+    </div>
+    <div id="libdoc-toc-container" class="m-fw-mini c-position m-top-right m-anchor-top-left u-bc-primary-edge u-z-10" u-fixed="sm" u-none="sm"></div>
+</main>

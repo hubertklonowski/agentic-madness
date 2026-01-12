@@ -16,17 +16,9 @@
     </button>
     <ul id="libdoc-sidebar-menu" class="u-m-none u-p-none u-ls-none u-mh-100vh u-o-auto u-pb-xxl">
         <li>
-            <a rel="author" href="{{ site.url }}{{ site.baseurl }}" class="c-btn m-translucid m-block-right u-p-md">
-                {% if site.sidebar.logo.url %}
-                    <img    src="{% if site.sidebar.logo.url contains 'https://' or site.sidebar.logo.url contains 'http://' %}{{ site.sidebar.logo.url }}{% else %}{{ site.url }}{{ site.baseurl }}{{ site.sidebar.logo.url }}{% endif %}" 
-                            {% if site.sidebar.logo.max_height %}
-                                style="max-height:{{ site.sidebar.logo.max_height }}"
-                            {% endif %}
-                            alt="{{ site.title }}">
-                {% else %}
-                    <!-- Without logo -->
-                    <span style="font-size: {{ site.sidebar.logo.font_size | default: 'var(--sg-font-size-lg)' }}; line-height: 1em;">{{ site.title }}</span>
-                {% endif %}
+            <a rel="author" href="{{ site.url }}{{ site.baseurl }}" class="c-btn m-translucid m-block u-ta-center u-p-md">
+                <!-- Icon removed - just show site title as text -->
+                <span style="font-size: {{ site.sidebar.logo.font_size | default: 'var(--sg-font-size-lg)' }}; line-height: 1em; font-weight: bold;">{{ site.title }}</span>
             </a>
         </li>
         {% if page_paths %}

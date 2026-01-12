@@ -1,0 +1,20 @@
+---
+---
+User-agent: *
+Allow: /
+
+# Allow crawling of CSS and JS files for better rendering
+Allow: /assets/
+Allow: *.css
+Allow: *.js
+
+# Sitemap location (uncomment when sitemap is available)
+# Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
+
+# Crawl delay (optional - adjust based on your server capacity)
+Crawl-delay: 1
+
+# Disallow any temporary or admin directories (if they exist)
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /_site/

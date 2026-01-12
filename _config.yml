@@ -6,6 +6,11 @@
 # remote_theme: olivier3lanc/Jekyll-LibDoc
 title: Agentic Madness
 description: ''
+# Sidebar configuration
+sidebar:
+  logo:
+    font_size: 'var(--sg-font-size-lg)'
+    # No URL specified to remove icon
 # IMPORTANT: on Github Pages deploys, url and baseurl must be commented or set to proper settings, otherwise links and resources URL are wrong
 # url: http://localhost # the base hostname & protocol for your site, e.g. http://example.com
 # baseurl: /Jekyll-LibDoc/_site # the subpath of your site, e.g. /blog
