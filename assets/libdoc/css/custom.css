@@ -346,7 +346,22 @@ a.tag:hover {
     
     /* Fix hamburger menu positioning */
     #libdoc-sidebar button.c-btn {
-        z-index: 1000 !important;
+        z-index: 1001 !important;
+        pointer-events: auto !important;
+        background-color: var(--sg-color-primary-max, #fff) !important;
+    }
+    
+    /* Ensure hamburger menu doesn't overlap page content */
+    @media (max-width: 1200px) {
+        #libdoc-sidebar button.c-btn {
+            position: fixed !important;
+            transform: none !important;
+        }
+        
+        /* Add top padding to page header to prevent overlap with hamburger menu */
+        #libdoc-page-title {
+            padding-top: 50px !important;
+        }
     }
     
     /* Fix sidebar height to take full screen */
