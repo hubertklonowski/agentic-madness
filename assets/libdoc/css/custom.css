@@ -1,5 +1,10 @@
 /* Custom styles for Agentic Madness */
 
+/* Sidebar contact link */
+.sidebar-contact a:hover {
+    opacity: 1 !important;
+}
+
 /* Search button styling */
 #libdoc-sidebar-item-search button[type="submit"]:hover {
     opacity: 1 !important;
