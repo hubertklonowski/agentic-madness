@@ -334,7 +334,7 @@ sitemap: false
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">GitHub Username</label>
-                    <input type="text" id="username" required autocomplete="username" value="hubertklonowski">
+                    <input type="text" id="username" required autocomplete="username" value="{{ site.github.owner_name }}">
                 </div>
                 <div class="form-group">
                     <label for="password">GitHub Personal Access Token</label>
@@ -415,17 +415,13 @@ sitemap: false
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <script>
-        // Configuration - credentials from environment (will be replaced by GitHub Actions)
-        const ADMIN_CREDENTIALS = {
-            username: '{{ site.github.owner_name }}',
-            // In production, password will be replaced via GitHub Actions secret
-            password: 'ADMIN_PASSWORD_PLACEHOLDER'
-        };
+        // Configuration
+        const ADMIN_USERNAME = '{{ site.github.owner_name }}';
 
         // GitHub Configuration
         const GITHUB_CONFIG = {
-            owner: 'hubertklonowski',
-            repo: 'agentic-madness',
+            owner: '{{ site.github.owner_name }}',
+            repo: '{{ site.github.repository_name }}',
             branch: 'main'
         };
 
@@ -449,8 +445,8 @@ sitemap: false
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // The password is actually the GitHub Personal Access Token
-            if (username === ADMIN_CREDENTIALS.username) {
+            // The password is the GitHub Personal Access Token
+            if (username === ADMIN_USERNAME) {
                 // Verify token by making a test API call
                 const isValid = await verifyGitHubToken(password);
                 
@@ -650,7 +646,12 @@ sitemap: false
                 <div class="post-title">${post.title || 'Untitled'} <span class="badge badge-${type}">${type}</span></div>
                 <div class="post-meta">${post.date || 'No date'}</div>
             `;
-            item.addEventListener('click', () => loadPost(post, type, index));
+            item.addEventListener('click', function(e) {
+                loadPost(post, type);
+                // Highlight active post
+                document.querySelectorAll('.post-item').forEach(item => item.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+            });
             return item;
         }
 
@@ -670,14 +671,13 @@ sitemap: false
             showForm();
         });
 
-        function loadPost(post, type, index) {
+        function loadPost(post, type) {
             currentPost = { ...post, type };
             populateForm();
             showForm();
             
-            // Highlight active post
+            // Highlight active post - using event.target from click handler
             document.querySelectorAll('.post-item').forEach(item => item.classList.remove('active'));
-            event.currentTarget.classList.add('active');
         }
 
         function populateForm() {
@@ -851,7 +851,7 @@ sitemap: false
             // Create or update file
             const body = {
                 message: sha ? `Update ${type} post: ${postData.title}` : `Create ${type} post: ${postData.title}`,
-                content: btoa(unescape(encodeURIComponent(content))), // Base64 encode with UTF-8 support
+                content: btoa(encodeURIComponent(content).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode(parseInt(p1, 16)))), // Base64 encode with UTF-8 support
                 branch: GITHUB_CONFIG.branch
             };
             
