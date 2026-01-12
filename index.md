@@ -59,6 +59,12 @@ description: "Exploring the world of AI agents and autonomous systems"
 </section>
 {% endif %}
 
+<!-- Comments Section for Latest Post -->
+<section class="comments-section u-bt-thin-dashed-alt u-p-lg u-mt-lg" u-p-sm="sm">
+  <h2 class="u-fs-lg u-mb-md">Comments</h2>
+  {% include giscus.html %}
+</section>
+
 <script>
 // Highlight the latest post in sidebar on home page
 document.addEventListener('DOMContentLoaded', function() {

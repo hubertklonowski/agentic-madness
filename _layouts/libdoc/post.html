@@ -28,6 +28,14 @@ layout: libdoc/default
             {{ content }}
         </article>
         
+        <!-- Comments Section -->
+        {% unless page.comments == false %}
+        <section class="comments-section u-bt-thin-dashed-alt u-p-lg" u-p-sm="sm">
+            <h2 class="u-fs-lg u-mb-md">Comments</h2>
+            {% include giscus.html %}
+        </section>
+        {% endunless %}
+        
         <footer class="post-footer u-bt-thin-dashed-alt u-p-lg" u-p-sm="sm">
             <div class="post-navigation u-mb-md">
                 {% if page.previous.url %}
