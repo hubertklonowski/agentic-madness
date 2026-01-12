@@ -1,5 +1,35 @@
 /* Custom styles for Agentic Madness */
 
+/* Search button styling */
+#libdoc-sidebar-item-search button[type="submit"]:hover {
+    opacity: 1 !important;
+}
+
+/* Search input - always show right border */
+#libdoc-search-box {
+    border-right: 1px dashed var(--sg-color-primary-alt, #ccc) !important;
+}
+
+/* Search input clear button styling */
+#libdoc-search-box::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>') center/contain no-repeat;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+#libdoc-search-box::-webkit-search-cancel-button:hover {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>') center/contain no-repeat;
+}
+
+/* Firefox clear button */
+#libdoc-search-box::-moz-search-cancel-button {
+    cursor: pointer;
+}
+
 /* Latest post indicator */
 .latest-indicator {
     background: var(--sg-color-primary-edge, #f5f5f5);
