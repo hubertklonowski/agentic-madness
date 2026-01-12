@@ -1,0 +1,94 @@
+name: Sync Posts from Editor
+
+on:
+  # Manual trigger only - admin will run this after making changes in the editor
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform (save/delete)'
+        required: true
+        type: choice
+        options:
+          - save
+          - delete
+      post_type:
+        description: 'Post type (draft/published)'
+        required: true
+        type: choice
+        options:
+          - draft
+          - published
+      filename:
+        description: 'Filename (e.g., 2026-01-12-my-post.md)'
+        required: true
+        type: string
+      content:
+        description: 'Post content (base64 encoded for safe transfer)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Process post action
+        run: |
+          ACTION="${{ github.event.inputs.action }}"
+          POST_TYPE="${{ github.event.inputs.post_type }}"
+          FILENAME="${{ github.event.inputs.filename }}"
+          
+          # Determine directory based on post type
+          if [ "$POST_TYPE" = "draft" ]; then
+            DIR="_drafts"
+          else
+            DIR="_posts"
+          fi
+          
+          # Create directory if it doesn't exist
+          mkdir -p "$DIR"
+          
+          if [ "$ACTION" = "save" ]; then
+            # Decode and save content
+            echo "${{ github.event.inputs.content }}" | base64 -d > "$DIR/$FILENAME"
+            echo "Saved post to $DIR/$FILENAME"
+            
+            # Remove from other directory if it exists
+            if [ "$POST_TYPE" = "draft" ] && [ -f "_posts/$FILENAME" ]; then
+              rm "_posts/$FILENAME"
+              echo "Removed from _posts"
+            elif [ "$POST_TYPE" = "published" ] && [ -f "_drafts/$FILENAME" ]; then
+              rm "_drafts/$FILENAME"
+              echo "Removed from _drafts"
+            fi
+          elif [ "$ACTION" = "delete" ]; then
+            # Delete the file
+            if [ -f "$DIR/$FILENAME" ]; then
+              rm "$DIR/$FILENAME"
+              echo "Deleted $DIR/$FILENAME"
+            else
+              echo "File not found: $DIR/$FILENAME"
+            fi
+          fi
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add _drafts/ _posts/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update post via editor: ${{ github.event.inputs.filename }}"
+            git push
+            echo "Changes committed and pushed"
+          fi
