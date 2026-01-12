@@ -6,6 +6,11 @@
 # remote_theme: olivier3lanc/Jekyll-LibDoc
 title: Agentic Madness
 description: ''
+# Sidebar configuration
+sidebar:
+  logo:
+    font_size: 'var(--sg-font-size-lg)'
+    # No URL specified to remove icon
 # IMPORTANT: on Github Pages deploys, url and baseurl must be commented or set to proper settings, otherwise links and resources URL are wrong
 # url: http://localhost # the base hostname & protocol for your site, e.g. http://example.com
 # baseurl: /Jekyll-LibDoc/_site # the subpath of your site, e.g. /blog
@@ -26,6 +31,26 @@ sass:
     style: compressed
 #exclude: ['/misc']
 
+# ---------
+# GISCUS COMMENTS
+# Powered by GitHub Discussions - https://giscus.app/
+# To set up:
+# 1. Enable Discussions on your GitHub repository
+# 2. Install the Giscus app: https://github.com/apps/giscus
+# 3. Get your repo_id and category_id from https://giscus.app/
+# ---------
+giscus:
+    repo: "hubertklonowski/agentic-madness"
+    repo_id: "R_kgDOQq8Bgg"
+    category: "General"
+    category_id: "DIC_kwDOQq8Bgs4C03QQ"
+    mapping: "title"
+    strict: "1"
+    reactions_enabled: "1"
+    emit_metadata: "1"
+    input_position: "top"
+    theme: "preferred_color_scheme"
+    lang: "en"
 # ---------
 # LIBDOC CONFIGURATION
 # https://olivier3lanc.github.io/Jekyll-LibDoc/libdoc-config.html

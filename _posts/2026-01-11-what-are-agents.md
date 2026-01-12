@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: libdoc/post
 title: "What are agents?"
 date: 2026-01-11 11:00:00 +0100
 categories: [ai, llm, agents]
 tags: [agentic-ai, assistants, react, tools, retrieval, memory]
+description: "Understanding the difference between AI assistants and autonomous agents"
 ---
 
 What if your AI could plan your vacation, manage your inbox, and solve problems without constant input?
