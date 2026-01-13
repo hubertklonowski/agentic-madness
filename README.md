@@ -15,6 +15,7 @@ This is a static site hosted on GitHub Pages, featuring articles and insights ab
 - **Search**: Built-in search functionality
 - **Syntax Highlighting**: Code blocks with Prism.js
 - **Responsive Design**: Mobile-friendly layout
+- **Post Editor**: Hidden editor for creating and editing posts (only accessible at `/editor`, not shown in navigation)
 
 ## Prerequisites
 

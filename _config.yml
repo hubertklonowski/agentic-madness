@@ -32,7 +32,6 @@ sass:
 # Exclude drafts and editor from public site
 exclude: 
   - _drafts
-  - post-editor.html
   - vendor
   - Gemfile
   - Gemfile.lock
