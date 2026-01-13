@@ -29,7 +29,12 @@ kramdown:
         disable: true
 sass:
     style: compressed
-#exclude: ['/misc']
+# Exclude drafts and editor from public site
+exclude: 
+  - _drafts
+  - vendor
+  - Gemfile
+  - Gemfile.lock
 
 # ---------
 # GISCUS COMMENTS
